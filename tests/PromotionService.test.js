@@ -70,7 +70,12 @@ describe('PromotionService', () => {
         player_id: '12345',
         player_level: 25,
         spend_tier: 'vip',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 99.99,
+        current_date: '2024-01-15'
       };
       
       const mockPromotion = {
@@ -98,9 +103,15 @@ describe('PromotionService', () => {
 
     test('should return null when no rules match', async () => {
       const playerData = {
+        player_id: '12345',
         player_level: 25,
         spend_tier: 'free',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 0,
+        current_date: '2024-01-15'
       };
       
       // Mock all rules to not match
@@ -120,9 +131,15 @@ describe('PromotionService', () => {
 
     test('should return highest priority matching rule', async () => {
       const playerData = {
+        player_id: '12345',
         player_level: 5,
         spend_tier: 'free',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 2,
+        total_spent: 0,
+        current_date: '2024-01-15'
       };
       
       const mockPromotion = {
@@ -145,9 +162,15 @@ describe('PromotionService', () => {
 
     test('should handle player validation errors', async () => {
       const invalidPlayerData = {
+        player_id: '12345',
         player_level: -1, // Invalid
         spend_tier: 'invalid',
-        country: 'INVALID'
+        country: 'INVALID',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: -50, // Invalid
+        current_date: '2024-01-15'
       };
       
       const result = await promotionService.evaluatePromotion(invalidPlayerData);
@@ -158,9 +181,15 @@ describe('PromotionService', () => {
 
     test('should handle rule evaluation errors gracefully', async () => {
       const playerData = {
+        player_id: '12345',
         player_level: 25,
         spend_tier: 'vip',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 99.99,
+        current_date: '2024-01-15'
       };
       
       // Mock first rule to throw error
@@ -185,9 +214,15 @@ describe('PromotionService', () => {
     test('should respect evaluation timeout', async () => {
       // This test verifies timeout handling without relying on exact timing
       const playerData = {
+        player_id: '12345',
         player_level: 25,
         spend_tier: 'vip',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 99.99,
+        current_date: '2024-01-15'
       };
       
       // For now, just test that we can handle synchronous errors
@@ -206,9 +241,15 @@ describe('PromotionService', () => {
       });
       
       const playerData = {
+        player_id: '12345',
         player_level: 25,
         spend_tier: 'free',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 0,
+        current_date: '2024-01-15'
       };
       
       // Mock all rules to not match
@@ -228,9 +269,15 @@ describe('PromotionService', () => {
   describe('validatePlayerData', () => {
     test('should return valid for correct data', () => {
       const playerData = {
+        player_id: '12345',
         player_level: 25,
         spend_tier: 'medium',
-        country: 'US'
+        country: 'US',
+        days_since_last_purchase: 5,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: 50.00,
+        current_date: '2024-01-15'
       };
       
       const result = promotionService.validatePlayerData(playerData);
@@ -242,9 +289,15 @@ describe('PromotionService', () => {
 
     test('should return invalid for incorrect data', () => {
       const playerData = {
+        player_id: '12345',
         player_level: -1,
         spend_tier: 'invalid',
-        country: 'INVALID'
+        country: 'INVALID',
+        days_since_last_purchase: null,
+        days_since_last_login: 1,
+        days_since_registration: 30,
+        total_spent: -50,
+        current_date: '2024-01-15'
       };
       
       const result = promotionService.validatePlayerData(playerData);

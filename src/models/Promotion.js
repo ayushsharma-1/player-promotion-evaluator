@@ -5,18 +5,18 @@ class Promotion {
   constructor(data = {}) {
     // Always generate a unique ID, ignore any ID from data
     this.id = this._generateUniqueId();
-    this.name = data.name || '';
-    this.type = data.type || 'bonus';
-    this.value = data.value || 0;
-    this.currency = data.currency || 'coins';
-    this.reward = data.reward || 0;
-    this.description = data.description || '';
-    this.item_id = data.item_id || null;
-    this.discount = data.discount || null;
+    this.name = data.name;
+    this.type = data.type;
+    this.value = data.value;
+    this.currency = data.currency;
+    this.reward = data.reward;
+    this.description = data.description;
+    this.item_id = data.item_id;
+    this.discount = data.discount;
     
     // Metadata
     this.timestamp = new Date().toISOString();
-    this.rule_id = data.rule_id || null;
+    this.rule_id = data.rule_id;
   }
 
   /**

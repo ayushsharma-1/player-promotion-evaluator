@@ -2,15 +2,15 @@ const Player = require('../src/models/Player');
 
 describe('Player Model', () => {
   describe('constructor', () => {
-    test('should create player with default values', () => {
+    test('should create player with only provided data (no defaults)', () => {
       const player = new Player();
       
-      expect(player.player_id).toBeNull();
-      expect(player.player_level).toBe(1);
-      expect(player.spend_tier).toBe('free');
-      expect(player.country).toBe('US');
-      expect(player.days_since_last_purchase).toBeNull();
-      expect(player.total_spent).toBe(0);
+      expect(player.player_id).toBeUndefined();
+      expect(player.player_level).toBeUndefined();
+      expect(player.spend_tier).toBeUndefined();
+      expect(player.country).toBeUndefined();
+      expect(player.days_since_last_purchase).toBeUndefined();
+      expect(player.total_spent).toBeUndefined();
     });
 
     test('should create player with provided data', () => {

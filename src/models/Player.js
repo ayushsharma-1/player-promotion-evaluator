@@ -3,21 +3,21 @@
  */
 class Player {
   constructor(data = {}) {
-    this.player_id = data.player_id || null;
-    this.player_level = data.player_level || 1;
-    this.spend_tier = data.spend_tier || 'free'; // free, light, medium, heavy, vip, whale
-    this.country = data.country || 'US';
-    this.days_since_last_purchase = data.days_since_last_purchase || null;
-    this.days_since_last_login = data.days_since_last_login || 0;
-    this.days_since_registration = data.days_since_registration || 0;
-    this.total_spent = data.total_spent || 0;
-    this.current_date = data.current_date || new Date().toISOString().split('T')[0];
+    this.player_id = data.player_id;
+    this.player_level = data.player_level;
+    this.spend_tier = data.spend_tier; // free, light, medium, heavy, vip, whale
+    this.country = data.country;
+    this.days_since_last_purchase = data.days_since_last_purchase;
+    this.days_since_last_login = data.days_since_last_login;
+    this.days_since_registration = data.days_since_registration;
+    this.total_spent = data.total_spent;
+    this.current_date = data.current_date;
     
     // Extensibility hooks for future features
-    this.ab_bucket = data.ab_bucket || null;
-    this.geo_region = data.geo_region || null;
-    this.device_type = data.device_type || null;
-    this.session_count = data.session_count || 0;
+    this.ab_bucket = data.ab_bucket;
+    this.geo_region = data.geo_region;
+    this.device_type = data.device_type;
+    this.session_count = data.session_count;
   }
 
   /**
