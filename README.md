@@ -56,14 +56,16 @@ Evaluate and return the best promotion for a player.
 {
   "success": true,
   "promotion": {
-    "id": "vip_welcome_back",
-    "name": "VIP Welcome Back",
+    "id": "promo_1753369154704_w76bf",
+    "name": "VIP Welcome Back Offer",
     "type": "discount",
     "value": 50,
     "currency": "gems",
     "reward": 1000,
     "description": "Welcome back VIP! 50% off next purchase + 1000 gems",
-    "timestamp": "2025-07-24T15:30:00.000Z",
+    "item_id": null,
+    "discount": null,
+    "timestamp": "2025-07-24T14:59:14.704Z",
     "rule_id": "vip_welcome_back"
   }
 }

@@ -22,8 +22,8 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
 {
   "success": true,
   "promotion": {
-    "id": null,
-    "name": "",
+    "id": "promo_1753369154704_w76bf",
+    "name": "VIP Welcome Back Offer",
     "type": "discount",
     "value": 50,
     "currency": "gems",
@@ -31,7 +31,7 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
     "description": "Welcome back VIP! 50% off next purchase + 1000 gems",
     "item_id": null,
     "discount": null,
-    "timestamp": "2025-07-24T10:40:40.998Z",
+    "timestamp": "2025-07-24T14:59:14.704Z",
     "rule_id": "vip_welcome_back"
   }
 }
@@ -56,8 +56,8 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
 {
   "success": true,
   "promotion": {
-    "id": null,
-    "name": "",
+    "id": "promo_1753369161817_hrcbo",
+    "name": "New Player Welcome Boost",
     "type": "bonus",
     "value": 100,
     "currency": "coins",
@@ -65,7 +65,7 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
     "description": "New player boost: 5000 coins + 100% XP bonus",
     "item_id": null,
     "discount": null,
-    "timestamp": "2025-07-24T10:41:15.123Z",
+    "timestamp": "2025-07-24T14:59:21.817Z",
     "rule_id": "new_player_boost"
   }
 }
@@ -90,8 +90,8 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
 {
   "success": true,
   "promotion": {
-    "id": null,
-    "name": "",
+    "id": "promo_1753369205451_x8uu6",
+    "name": "Legendary Weapon Exclusive",
     "type": "exclusive_item",
     "value": 0,
     "currency": "coins",
@@ -99,7 +99,7 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
     "description": "Exclusive legendary weapon for our biggest supporters",
     "item_id": "legendary_sword",
     "discount": null,
-    "timestamp": "2025-07-24T10:41:45.567Z",
+    "timestamp": "2025-07-24T15:00:05.451Z",
     "rule_id": "big_spender_exclusive"
   }
 }
@@ -124,8 +124,8 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
 {
   "success": true,
   "promotion": {
-    "id": null,
-    "name": "",
+    "id": "promo_1753369234567_abc12",
+    "name": "Daily Login Bonus",
     "type": "daily",
     "value": 10,
     "currency": "coins",
@@ -133,7 +133,7 @@ This document demonstrates the Scopely Promotion Service API behavior with vario
     "description": "Daily login bonus: 100 coins",
     "item_id": null,
     "discount": null,
-    "timestamp": "2025-07-24T10:42:10.891Z",
+    "timestamp": "2025-07-24T15:00:34.567Z",
     "rule_id": "default_daily"
   }
 }

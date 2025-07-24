@@ -16,6 +16,7 @@ rules:
       country:
         include: ["US", "CA", "GB", "AU"]
     promotion:
+      name: "VIP Welcome Back Offer"
       type: "discount"
       value: 50
       currency: "gems"
@@ -31,6 +32,7 @@ rules:
       days_since_registration:
         max: 3
     promotion:
+      name: "New Player Welcome Boost"
       type: "bonus"
       value: 100
       currency: "coins"
@@ -47,6 +49,7 @@ rules:
       country:
         include: ["US", "JP", "KR", "GB"]
     promotion:
+      name: "Legendary Weapon Exclusive"
       type: "exclusive_item"
       item_id: "legendary_sword"
       description: "Exclusive legendary weapon for our biggest supporters"
@@ -61,6 +64,7 @@ rules:
         after: "2025-07-01"
         before: "2025-07-31"
     promotion:
+      name: "Summer Holiday Special"
       type: "limited_time"
       discount: 25
       description: "Summer special: 25% off all items"
@@ -75,6 +79,7 @@ rules:
       player_level:
         min: 20
     promotion:
+      name: "Welcome Back Reward"
       type: "comeback"
       value: 30
       currency: "gems"
@@ -87,6 +92,7 @@ rules:
     conditions:
       # No conditions - applies to everyone as fallback
     promotion:
+      name: "Daily Login Bonus"
       type: "daily"
       value: 10
       currency: "coins"

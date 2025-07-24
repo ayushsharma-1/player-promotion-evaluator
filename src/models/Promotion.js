@@ -3,7 +3,8 @@
  */
 class Promotion {
   constructor(data = {}) {
-    this.id = data.id || null;
+    // Always generate a unique ID, ignore any ID from data
+    this.id = this._generateUniqueId();
     this.name = data.name || '';
     this.type = data.type || 'bonus';
     this.value = data.value || 0;
@@ -16,6 +17,17 @@ class Promotion {
     // Metadata
     this.timestamp = new Date().toISOString();
     this.rule_id = data.rule_id || null;
+  }
+
+  /**
+   * Generate a unique promotion ID
+   * @private
+   */
+  _generateUniqueId() {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substr(2, 8);
+    const uuid = Math.random().toString(36).substr(2, 4);
+    return `promo_${timestamp}_${random}_${uuid}`;
   }
 
   /**
