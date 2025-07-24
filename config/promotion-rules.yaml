@@ -1,0 +1,117 @@
+# Promotion Rules Configuration
+# Rules are evaluated in order - first matching rule wins
+# Priority: higher numbers = higher priority
+
+rules:
+  - id: "vip_welcome_back"
+    name: "VIP Welcome Back"
+    priority: 100
+    conditions:
+      player_level:
+        min: 50
+      spend_tier: "vip"
+      days_since_last_purchase:
+        min: 7
+        max: 30
+      country:
+        include: ["US", "CA", "GB", "AU"]
+    promotion:
+      type: "discount"
+      value: 50
+      currency: "gems"
+      reward: 1000
+      description: "Welcome back VIP! 50% off next purchase + 1000 gems"
+    
+  - id: "new_player_boost"
+    name: "New Player Boost"
+    priority: 90
+    conditions:
+      player_level:
+        max: 10
+      days_since_registration:
+        max: 3
+    promotion:
+      type: "bonus"
+      value: 100
+      currency: "coins"
+      reward: 5000
+      description: "New player boost: 5000 coins + 100% XP bonus"
+    
+  - id: "big_spender_exclusive"
+    name: "Big Spender Exclusive"
+    priority: 95
+    conditions:
+      spend_tier: "whale"
+      total_spent:
+        min: 1000
+      country:
+        include: ["US", "JP", "KR", "GB"]
+    promotion:
+      type: "exclusive_item"
+      item_id: "legendary_sword"
+      description: "Exclusive legendary weapon for our biggest supporters"
+    
+  - id: "regional_holiday"
+    name: "Regional Holiday Special"
+    priority: 80
+    conditions:
+      country:
+        include: ["US"]
+      current_date:
+        after: "2025-07-01"
+        before: "2025-07-31"
+    promotion:
+      type: "limited_time"
+      discount: 25
+      description: "Summer special: 25% off all items"
+    
+  - id: "comeback_offer"
+    name: "Comeback Offer"
+    priority: 70
+    conditions:
+      days_since_last_login:
+        min: 14
+        max: 90
+      player_level:
+        min: 20
+    promotion:
+      type: "comeback"
+      value: 30
+      currency: "gems"
+      reward: 500
+      description: "We miss you! Come back for 500 gems + 30% bonus"
+    
+  - id: "default_daily"
+    name: "Daily Login Bonus"
+    priority: 10
+    conditions:
+      # No conditions - applies to everyone as fallback
+    promotion:
+      type: "daily"
+      value: 10
+      currency: "coins"
+      reward: 100
+      description: "Daily login bonus: 100 coins"
+
+# Configuration for extensibility hooks
+extensibility:
+  weighted_randomness:
+    enabled: false
+    # When enabled, multiple matching rules can be weighted
+    # Example: rule_weight_field: "weight"
+  
+  ab_testing:
+    enabled: false
+    # When enabled, players can be bucketed into test groups
+    # Example: bucket_field: "ab_bucket"
+  
+  time_windows:
+    enabled: false
+    # When enabled, rules can have specific time windows
+    # Example: active_hours, active_days_of_week
+
+# Performance settings
+performance:
+  rule_cache_ttl: 300  # 5 minutes
+  max_rules_per_evaluation: 100
+  evaluation_timeout_ms: 500

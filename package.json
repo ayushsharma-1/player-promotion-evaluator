@@ -1,0 +1,32 @@
+{
+  "name": "scopely-promotion-service",
+  "version": "1.0.0",
+  "description": "REST microservice for in-game promotion selection based on configurable business rules",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": ["promotion", "microservice", "gaming", "rest-api"],
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/app.js"
+    ]
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "nodemon": "^3.1.10"
+  }
+}

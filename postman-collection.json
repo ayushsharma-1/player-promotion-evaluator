@@ -1,0 +1,402 @@
+{
+  "info": {
+    "name": "Scopely Promotion Service",
+    "description": "REST API for in-game promotion selection based on configurable business rules",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Core Endpoints",
+      "item": [
+        {
+          "name": "Evaluate Promotion - VIP Player",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"vip_12345\",\n  \"player_level\": 55,\n  \"spend_tier\": \"vip\",\n  \"country\": \"US\",\n  \"days_since_last_purchase\": 10,\n  \"total_spent\": 500.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test VIP player promotion - should match vip_welcome_back rule"
+          }
+        },
+        {
+          "name": "Evaluate Promotion - New Player",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"new_67890\",\n  \"player_level\": 5,\n  \"spend_tier\": \"free\",\n  \"country\": \"CA\",\n  \"days_since_registration\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test new player promotion - should match new_player_boost rule"
+          }
+        },
+        {
+          "name": "Evaluate Promotion - Big Spender",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"whale_99999\",\n  \"player_level\": 75,\n  \"spend_tier\": \"whale\",\n  \"country\": \"JP\",\n  \"total_spent\": 2500.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test whale player promotion - should match big_spender_exclusive rule"
+          }
+        },
+        {
+          "name": "Evaluate Promotion - No Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"regular_11111\",\n  \"player_level\": 30,\n  \"spend_tier\": \"medium\",\n  \"country\": \"FR\",\n  \"days_since_last_purchase\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test player that should get default promotion"
+          }
+        },
+        {
+          "name": "Validate Player Data - Valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_level\": 25,\n  \"spend_tier\": \"medium\",\n  \"country\": \"US\",\n  \"days_since_last_purchase\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/validate-player",
+              "host": ["{{baseUrl}}"],
+              "path": ["validate-player"]
+            },
+            "description": "Validate correct player data"
+          }
+        },
+        {
+          "name": "Validate Player Data - Invalid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_level\": -1,\n  \"spend_tier\": \"invalid_tier\",\n  \"country\": \"INVALID\",\n  \"total_spent\": -50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/validate-player",
+              "host": ["{{baseUrl}}"],
+              "path": ["validate-player"]
+            },
+            "description": "Test validation with invalid player data"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Monitoring",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check service health status"
+          }
+        },
+        {
+          "name": "Basic Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["metrics"]
+            },
+            "description": "Get basic service metrics"
+          }
+        },
+        {
+          "name": "Detailed Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/metrics?detailed=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["metrics"],
+              "query": [
+                {
+                  "key": "detailed",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Get detailed metrics including percentiles and rule usage"
+          }
+        },
+        {
+          "name": "Promotion Service Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/promotion/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion", "status"]
+            },
+            "description": "Get promotion service specific status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Administration",
+      "item": [
+        {
+          "name": "Get All Rules",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/rules",
+              "host": ["{{baseUrl}}"],
+              "path": ["rules"]
+            },
+            "description": "Get all loaded promotion rules"
+          }
+        },
+        {
+          "name": "Get Specific Rule",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/rules/vip_welcome_back",
+              "host": ["{{baseUrl}}"],
+              "path": ["rules", "vip_welcome_back"]
+            },
+            "description": "Get details for a specific rule by ID"
+          }
+        },
+        {
+          "name": "Hot Reload Rules",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/reload-rules",
+              "host": ["{{baseUrl}}"],
+              "path": ["reload-rules"]
+            },
+            "description": "Hot-reload promotion rules from YAML configuration"
+          }
+        },
+        {
+          "name": "Get Configuration",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/config",
+              "host": ["{{baseUrl}}"],
+              "path": ["config"]
+            },
+            "description": "Get current service configuration"
+          }
+        },
+        {
+          "name": "Validate Configuration",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/validate-config",
+              "host": ["{{baseUrl}}"],
+              "path": ["validate-config"]
+            },
+            "description": "Validate YAML configuration format"
+          }
+        },
+        {
+          "name": "Reset Metrics",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/metrics/reset",
+              "host": ["{{baseUrl}}"],
+              "path": ["metrics", "reset"]
+            },
+            "description": "Reset all service metrics (admin only)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases & Error Testing",
+      "item": [
+        {
+          "name": "Missing Required Fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"incomplete_player\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test with missing required fields"
+          }
+        },
+        {
+          "name": "Invalid JSON",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ invalid json structure"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test with malformed JSON"
+          }
+        },
+        {
+          "name": "Unsupported Country Code",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_level\": 25,\n  \"spend_tier\": \"medium\",\n  \"country\": \"XX\",\n  \"days_since_last_purchase\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["promotion"]
+            },
+            "description": "Test with unsupported country code"
+          }
+        },
+        {
+          "name": "Non-existent Rule ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/rules/non_existent_rule",
+              "host": ["{{baseUrl}}"],
+              "path": ["rules", "non_existent_rule"]
+            },
+            "description": "Test 404 response for non-existent rule"
+          }
+        },
+        {
+          "name": "Non-existent Endpoint",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/non-existent-endpoint",
+              "host": ["{{baseUrl}}"],
+              "path": ["non-existent-endpoint"]
+            },
+            "description": "Test 404 response for non-existent endpoint"
+          }
+        }
+      ]
+    },
+    {
+      "name": "API Documentation",
+      "item": [
+        {
+          "name": "Get API Documentation",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Get comprehensive API documentation with examples"
+          }
+        }
+      ]
+    }
+  ]
+}
