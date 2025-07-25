@@ -3,16 +3,16 @@
  */
 class Rule {
   constructor(data = {}) {
-    this.id = data.id || null;
-    this.name = data.name || '';
-    this.priority = data.priority || 0;
-    this.conditions = data.conditions || {};
-    this.promotion = data.promotion || {};
+    this.id = data.id;
+    this.name = data.name;
+    this.priority = data.priority;
+    this.conditions = data.conditions;
+    this.promotion = data.promotion;
     
     // Extensibility hooks
-    this.weight = data.weight || 1;  // For weighted randomness
-    this.ab_bucket = data.ab_bucket || null;  // For A/B testing
-    this.time_window = data.time_window || null;  // For time-based rules
+    this.weight = data.weight;  // For weighted randomness
+    this.ab_bucket = data.ab_bucket; // For A/B testing
+    this.time_window = data.time_window;  // For time-based rules
   }
 
   /**
